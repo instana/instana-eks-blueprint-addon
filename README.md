@@ -5,7 +5,9 @@ The IBM Instana Addon enables you to install and set up the Instana Host Agent f
 This Addon will use IBM Instana Kubernetes operator in the namespace instana-agent to install and manage the Instana agent. It also configures custom resource values to configure the operator.
 
 ## Prerequisites
-Go to your Instana installation (Instana User Interface), click ... More > Agents > Installing Instana Agents and select 'Kubernetes' platform to get the Instana Agent Key, Instana Service Endpoint, Instana Service port. These steps are also described here: https://www.ibm.com/docs/en/instana-observability/218?topic=instana-endpoints-keys
+Go to your Instana installation (Instana User Interface), click ... More > Agents > Installing Instana Agents and select 'Kubernetes' platform to get the Instana Agent Key, Instana Service Endpoint, Instana Service port. These steps are also described here: https://www.ibm.com/docs/en/instana-observability/218?topic=instana-endpoints-keys or in the screenshot below.
+
+![Instana Agent Configuration](/docs/instana-agent.png)
 
 ## How to use IBM Instana Addon for Amazon EKS Blueprint
 Refer the AWS CDK EKS-Blueprint starter guide to create a new project https://aws-quickstart.github.io/cdk-eks-blueprints/getting-started/ and refer below code as reference for providing configuration values to Instana Addon.
