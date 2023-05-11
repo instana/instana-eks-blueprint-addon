@@ -43,7 +43,7 @@ const app = new cdk.App();
 const account = '<AWS_ACCOUNT>';
 const region = '<AWS_REGION>';
 
-export const defaultProps = {
+export const instanaProps = {
   zone: '<AWS_REGION>',
   cluster_name: '<AMAZON_EKS_CLUSTER_NAME>',
   instana_agent_key: '<INSTANA_AGENT_KEY>',
@@ -53,7 +53,7 @@ export const defaultProps = {
 }
 
 const addOns: Array<blueprints.ClusterAddOn> = [
-  new InstanaOperatorAddon(defaultProps)
+  new InstanaOperatorAddon(instanaProps)
 ];
 
 const stack = blueprints.EksBlueprint.builder()
