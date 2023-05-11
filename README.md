@@ -5,10 +5,34 @@ The IBM Instana Addon enables you to install and set up the Instana Host Agent f
 This Addon will use IBM Instana Kubernetes operator in the namespace instana-agent to install and manage the Instana agent. It also configures custom resource values to configure the operator.
 
 ## Prerequisites
-Go to your Instana installation (Instana User Interface), click ... More > Agents > Installing Instana Agents and select 'Kubernetes' platform to get the Instana Agent Key, Instana Service Endpoint, Instana Service port. These steps are also described here: https://www.ibm.com/docs/en/instana-observability/218?topic=instana-endpoints-keys
+
+### AWS CLI
+Refer the following guide to install the AWS CLI
+
+```text
+https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+```
+After installing AWS CLI run following command to configure [AWS CLI](https://docs.aws.amazon.com/cli/latest/reference/configure/)
+
+```shell
+aws configure
+```
+
+### Instana Agent Configuration
+Go to your Instana installation (Instana User Interface), click ... More > Agents > Installing Instana Agents and select 'Kubernetes' platform to get the Instana Agent Key, Instana Service Endpoint, Instana Service port. These steps are also described [here](https://www.ibm.com/docs/en/instana-observability/218?topic=instana-endpoints-keys) or in the screenshot below.
+
+![Instana Agent Configuration](/docs/instana-agent.png)
 
 ## How to use IBM Instana Addon for Amazon EKS Blueprint
-Refer the AWS CDK EKS-Blueprint starter guide to create a new project https://aws-quickstart.github.io/cdk-eks-blueprints/getting-started/ and refer below code as reference for providing configuration values to Instana Addon.
+Refer the AWS CDK EKS-Blueprint starter guide to create a new project and installing dependecies https://aws-quickstart.github.io/cdk-eks-blueprints/getting-started/ 
+
+Once the project is created, install instana-eks-blueprint-addon npm package using following command.
+
+```shell
+npm i instana-eks-blueprint-addon
+```
+
+Go back to the ```bin/<your-main-file>.ts``` and and refer below code as reference for providing configuration values to Instana Addon.
 
 ```typescript
 import 'source-map-support/register';
