@@ -21,7 +21,7 @@ aws configure
 ### Instana Agent Configuration
 Go to your Instana installation (Instana User Interface), click ... More > Agents > Installing Instana Agents and select 'Kubernetes' platform to get the Instana Agent Key, Instana Service Endpoint, Instana Service port. These steps are also described [here](https://www.ibm.com/docs/en/instana-observability/218?topic=instana-endpoints-keys) or in the screenshot below.
 
-![Instana Agent Configuration](/docs/instana-agent.png)
+![Instana Agent Configuration](/res/instana-agent.png)
 
 ## How to use IBM Instana Addon for Amazon EKS Blueprint
 Refer the AWS CDK EKS-Blueprint starter guide to create a new project and installing dependecies https://aws-quickstart.github.io/cdk-eks-blueprints/getting-started/ 
