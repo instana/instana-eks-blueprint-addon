@@ -24,9 +24,9 @@ Go to your Instana installation (Instana User Interface), click ... More > Agent
 ![Instana Agent Configuration](/res/instana-agent.png)
 
 ## How to use IBM Instana Addon for Amazon EKS Blueprint
-Refer the AWS CDK EKS-Blueprint starter guide to create a new project and installing dependecies https://aws-quickstart.github.io/cdk-eks-blueprints/getting-started/ 
+Refer the AWS CDK EKS-Blueprint [starter guide](https://aws-quickstart.github.io/cdk-eks-blueprints/getting-started/) to create a new project and installing dependecies.
 
-Once the project is created, install instana-eks-blueprint-addon npm package using following command.
+Once the project is created, install [instana-eks-blueprint-addon](https://www.npmjs.com/package/instana-eks-blueprint-addon?activeTab=readme) npm package using following command.
 
 ```shell
 npm i instana-eks-blueprint-addon
