@@ -65,7 +65,7 @@ export class InstanaOperatorAddon implements ClusterAddOn {
     };
 
     let manifest = null;
-    const instanaCustomResourceObj = {
+    const instanaCustomResourceObj = [{
       apiVersion: 'instana.io/v1',
       kind: 'InstanaAgent',
       metadata: {
@@ -74,18 +74,18 @@ export class InstanaOperatorAddon implements ClusterAddOn {
       },
       spec: {
       }
-    };
+    }];
 
     // Validate if key, host, port are not empty, null, or undefined.
     initValidation(this._instanaProps);
 
     //Add instanaProps in the spec
-    instanaCustomResourceObj.spec = this._instanaProps;
+    instanaCustomResourceObj[0].spec = this._instanaProps;
 
-    manifest = [instanaCustomResourceObj];
+    manifest = instanaCustomResourceObj;
 
     console.log("############################################################");
-    console.log(instanaCustomResourceObj.spec);
+    console.log(manifest);
     console.log("############################################################");
 
     const km1 = new KubernetesManifest(
@@ -151,4 +151,4 @@ export class InstanaOperatorAddon implements ClusterAddOn {
       process.exit(1);
     }
   }
-}
+}  
