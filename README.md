@@ -18,50 +18,104 @@ After installing AWS CLI run following command to configure [AWS CLI](https://do
 aws configure
 ```
 
+### Node.js and npm
+Refer the following guide to install the Node.js and npm
+
+#### Mac
+```shell
+brew install make
+brew install node
+```
+#### Ubuntu
+```shell
+sudo apt install make
+sudo apt install nodejs
+```
+
+### Create Project
+
+```shell
+mkdir my-blueprints
+cd my-blueprints
+sudo npm install -g n
+n stable
+npm install -g aws-cdk@2.79.0
+cdk init app --language typescript
+```
+
 ### Instana Agent Configuration
 Go to your Instana installation (Instana User Interface), click ... More > Agents > Installing Instana Agents and select 'Kubernetes' platform to get the Instana Agent Key, Instana Service Endpoint, Instana Service port. These steps are also described [here](https://www.ibm.com/docs/en/instana-observability/218?topic=instana-endpoints-keys) or in the screenshot below.
 
 ![Instana Agent Configuration](/res/instana-agent.png)
 
 ## How to use IBM Instana Addon for Amazon EKS Blueprint
-Refer the AWS CDK EKS-Blueprint [starter guide](https://aws-quickstart.github.io/cdk-eks-blueprints/getting-started/) to create a new project and installing dependecies.
 
-Once the project is created, install [instana-eks-blueprint-addon](https://www.npmjs.com/package/instana-eks-blueprint-addon?activeTab=readme) npm package using following command.
+Once the project is created, install [eks-blueprints](https://www.npmjs.com/package/@aws-quickstart/eks-blueprints) and [instana-eks-blueprint-addon](https://www.npmjs.com/package/@instana/aws-eks-blueprint-addon) npm package using following command.
 
 ```shell
-npm i instana-eks-blueprint-addon
+npm i @aws-quickstart/eks-blueprints
+```
+
+```shell
+npm i @instana/aws-eks-blueprint-addon
 ```
 
 Go back to the ```bin/<your-main-file>.ts``` and and refer below code as reference for providing configuration values to Instana Addon.
 
 ```typescript
+import { InstanaOperatorAddon } from '@instana/aws-eks-blueprint-addon';
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import * as blueprints from '@aws-quickstart/eks-blueprints';
-import { InstanaOperatorAddon } from 'instana-eks-blueprint-addon';
+import { loadYaml } from '@aws-quickstart/eks-blueprints/dist/utils';
+
 const app = new cdk.App();
-const account = '<AWS_ACCOUNT>';
-const region = '<AWS_REGION>';
 
 export const instanaProps = {
-  zone: '<AWS_REGION>',
-  cluster_name: '<AMAZON_EKS_CLUSTER_NAME>',
-  instana_agent_key: '<INSTANA_AGENT_KEY>',
-  endpoint_host: '<INSTANA_ENDPOINT_HOST_URL>',
-  endpoint_port: '<INSTANA_ENDPOINT_HOST_PORT>',
-  instana_agent_env_tag_name: '<INSTANA_AGENT_ENV_TAG>' #dev, staging, prod etc.
-}
+  zone: {
+    name: "<INSTANA_ZONE_NAME>"// Mandatory Parameter
+  },
+  cluster: {
+    name: "<AMAZON_EKS_CLUSTER_NAME>"// Mandatory Parameter
+  },
+  agent: {
+    key: "<INSTANA_AGENT_KEY>", // Mandatory Parameter
+    endpointHost: "<INSTANA_ENDPOINT_HOST_URL>",// Mandatory Parameter
+    endpointPort: "<INSTANA_ENDPOINT_HOST_PORT>",// Mandatory Parameter
+    env: {
+    },
+    configuration_yaml:`
+    com.instana.plugin.host:
+          tags:
+            - 'dev'
+            - 'app1'
+      com.instana.plugin.javatrace:
+        instrumentation:
+          enabled: true
+          opentracing: true
+          sdk:
+            packages:
+              - 'com.instana.backend'
+              - 'com.instana.frontend'
+    `
+  }
+};
 
+const yamlObject = loadYaml(JSON.stringify(instanaProps));
+
+// AddOns for the cluster.
 const addOns: Array<blueprints.ClusterAddOn> = [
-  new InstanaOperatorAddon(instanaProps)
+    new InstanaOperatorAddon(yamlObject)
 ];
+
+const account = '<AWS_ACCOUNT>';
+const region = '<AWS_REGION>';
 
 const stack = blueprints.EksBlueprint.builder()
     .account(account)
     .region(region)
     .addOns(...addOns)
-    .useDefaultSecretEncryption(true) // set to false to turn secret encryption off (non-production/demo cases)
-    .build(app, '<AMAZON_EKS_CLUSTER_NAME>');
+    .build(app, 'AMAZON_EKS_CLUSTER_NAME');
 ```
 ## Bootstraping
 Bootstrap your environment with the following command.
@@ -73,6 +127,16 @@ cdk bootstrap
 and finally you can deploy the stack with the following command.
 ```shell
 cdk deploy
+```
+
+#### Output
+The output of the above command will be something similar
+
+```console
+Outputs:
+eks-blueprint.eksblueprintClusterNameF2A3938C = eks-blueprint
+eks-blueprint.eksblueprintConfigCommandC5F2ABDA = aws eks update-kubeconfig --name eks-blueprint --region us-east-2 --role-arn arn:aws:iam::<AWS_ACCOUNT>:role/eks-blueprint-eksblueprintMastersRoleDF959839-WGIFJBZQKRNA
+eks-blueprint.eksblueprintGetTokenCommandD17B69F1 = aws eks get-token --cluster-name eks-blueprint --region us-east-2 --role-arn arn:aws:iam::<AWS_ACCOUNT>:role/eks-blueprint-eksblueprintMastersRoleDF959839-WGIFJBZQKRNA
 ```
 
 ## Testing
