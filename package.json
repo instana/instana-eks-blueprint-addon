@@ -1,6 +1,6 @@
 {
   "name": "@instana/aws-eks-blueprint-addon",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Instana Operator Addon for Amazon EKS Blueprint for CDK",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,14 +14,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/instana/instana-eks-blueprint-addon.git"
+    "url": "git+https://github.com/instana/instana-eks-blueprint-addon.git"
   },
   "keywords": [
-    "Instana",
-    "Amazon",
-    "EKS",
-    "Blueprint",
-    "Addon"
+    "Instana Addon",
+    "Amazon EKS Blueprint Addon",
+    "Instana Addon for Amazon EKS Blueprint",
+    "Amazon EKS Blueprint",
+    "Instana EKS Addon"
   ],
   "author": "Arpit Nanavati <Arpit.Nanavati@ibm.com>",
   "license": "Apache-2.0",
@@ -32,7 +32,11 @@
     "jest": "^29.5.0"
   },
   "dependencies": {
-    "@aws-quickstart/eks-blueprints": "^1.7.3",
-    "aws-cdk": "^2.79.0"
-  }
+    "@aws-quickstart/eks-blueprints": "latest",
+    "aws-cdk": "^2.78.0"
+  },
+  "bugs": {
+    "url": "https://github.com/instana/instana-eks-blueprint-addon/issues"
+  },
+  "homepage": "https://github.com/instana/instana-eks-blueprint-addon#readme"
 }
