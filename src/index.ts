@@ -47,7 +47,7 @@ export class InstanaOperatorAddon implements ClusterAddOn {
     this.assignDefaultValues(this._instanaProps, clusterInfo);
 
     if (this._instanaProps.secretParamName) {
-      console.log('secret is present', this._instanaProps.secretParamName);
+      //console.log('secret is present', this._instanaProps.secretParamName);
       const instanaSecretParams = await getSecretValue(<string>this._instanaProps.secretParamName, clusterInfo.cluster.stack.region);
       const instanaCreds: InstanaSecret = JSON.parse(instanaSecretParams);
       this._instanaProps.agent = {
@@ -58,26 +58,26 @@ export class InstanaOperatorAddon implements ClusterAddOn {
       };
       delete this._instanaProps.secretParamName;
     } else {
-      console.log('secret not present in the request');
+      //console.log('secret not present in the request');
       this.initValidation(this._instanaProps);
     }
 
-    console.info("_instanaProps are", this._instanaProps);
+    //console.info("_instanaProps are", this._instanaProps);
 
     nsManifest.spec = this._instanaProps;
 
-    console.debug("############################################################");
-    console.debug("nsManifest is:", nsManifest);
-    console.debug("############################################################");
+    //console.debug("############################################################");
+    //console.debug("nsManifest is:", nsManifest);
+    //console.debug("############################################################");
 
     const km1 = cluster.addManifest("InstanaObj", nsManifest);
 
     const manifest: Record<string, unknown>[] = loadExternalYaml(
       "https://github.com/instana/instana-agent-operator/releases/latest/download/instana-agent-operator.yaml"
     );
-    console.debug("############################################################");
-    console.debug(manifest);
-    console.debug("############################################################");
+    //console.debug("############################################################");
+    //console.debug(manifest);
+    //console.debug("############################################################");
 
     const km2 = cluster.addManifest("InstanaCRO", ...manifest);
 

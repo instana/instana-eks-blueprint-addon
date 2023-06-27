@@ -1,6 +1,6 @@
 {
   "name": "@instana/aws-eks-blueprint-addon",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Instana Operator Addon for Amazon EKS Blueprint for CDK",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
